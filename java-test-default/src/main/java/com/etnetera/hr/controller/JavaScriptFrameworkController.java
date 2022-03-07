@@ -50,5 +50,9 @@ public class JavaScriptFrameworkController {
 	public JavaScriptFrameworkDTO getOne(@PathVariable Long id){
 		return JavaScriptFrameworkConverter.fromModel(service.readById(id));
 	}
+	//Searching by Name
+	//Searching by Date
+	//Searching by Hype
+	//Searching by version
 
 }

@@ -36,6 +36,14 @@ public class JavaScriptFramework {
 		this.hypeLevel = hypeLevel;
 	}
 
+	public JavaScriptFramework(Long id, String name, List<String> version, LocalDate deprecationDate, Double hypeLevel) {
+		this.id = id;
+		this.name = name;
+		this.version = version;
+		this.deprecationDate = deprecationDate;
+		this.hypeLevel = hypeLevel;
+	}
+
 	public JavaScriptFramework() {
 	}
 
