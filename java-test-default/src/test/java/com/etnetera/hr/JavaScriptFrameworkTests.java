@@ -6,6 +6,7 @@ import com.etnetera.hr.exception.EntityStateException;
 import com.etnetera.hr.service.JavaScriptFrameworkService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,21 +25,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Etnetera
  *
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 @WebMvcTest(JavaScriptFrameworkController.class)
 public class JavaScriptFrameworkTests {
 
     @MockBean
     JavaScriptFrameworkService service;
 
-    @MockBean
+    @Autowired
     MockMvc mockMvc;
 
     @Test
     public void testCreateExists() throws Exception {
-        doThrow(new EntityStateException()).when(service).create(any(JavaScriptFramework.class));
 
+        doThrow(new EntityStateException()).when(service).create(any(JavaScriptFramework.class));
         mockMvc.perform(post("/frameworks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"JavaScriptFramework\"," +
