@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Simple data entity describing basic properties of every JavaScript framework.
@@ -84,6 +85,19 @@ public class JavaScriptFramework {
 
 	public void setHypeLevel(Double hypeLevel) {
 		this.hypeLevel = hypeLevel;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof JavaScriptFramework)) return false;
+		JavaScriptFramework that = (JavaScriptFramework) o;
+		return Objects.equals(name, that.name) && Objects.equals(version, that.version) && Objects.equals(deprecationDate, that.deprecationDate) && Objects.equals(hypeLevel, that.hypeLevel);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, version, deprecationDate, hypeLevel);
 	}
 
 	@Override
