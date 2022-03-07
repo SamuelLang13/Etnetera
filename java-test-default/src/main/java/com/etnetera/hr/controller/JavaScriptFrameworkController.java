@@ -36,7 +36,7 @@ public class JavaScriptFrameworkController {
 	public JavaScriptFrameworkDTO create(@RequestBody JavaScriptFrameworkDTO javaScriptFrameworkDTO){
 		return JavaScriptFrameworkConverter.fromModel(service.create(JavaScriptFrameworkConverter.toModel(javaScriptFrameworkDTO)));
 	}
-	@DeleteMapping("/framework/{id}")
+	@DeleteMapping("/frameworks/{id}")
 	public void delete(@PathVariable Long id){
 		service.delete(id);
 	}

@@ -1,12 +1,8 @@
 package com.etnetera.hr.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Simple data entity describing basic properties of every JavaScript framework.
@@ -24,8 +20,8 @@ public class JavaScriptFramework {
 	@Column(nullable = false, length = 30)
 	private String name;
 
-	@Column(nullable = false, length = 50)
-	private String version;
+	@ElementCollection
+	private Set<String> version = new HashSet<>();
 
 	@Column(nullable = false)
 	private LocalDate deprecationDate;
@@ -33,7 +29,7 @@ public class JavaScriptFramework {
 	@Column(nullable = false)
 	private Double hypeLevel;
 
-	public JavaScriptFramework(String name, String version, LocalDate deprecationDate, Double hypeLevel) {
+	public JavaScriptFramework(String name, Set<String> version, LocalDate deprecationDate, Double hypeLevel) {
 		this.name = name;
 		this.version = version;
 		this.deprecationDate = deprecationDate;
@@ -63,11 +59,11 @@ public class JavaScriptFramework {
 		this.name = name;
 	}
 
-	public String getVersion() {
+	public Set<String> getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(Set<String> version) {
 		this.version = version;
 	}
 
@@ -105,7 +101,7 @@ public class JavaScriptFramework {
 		return "JavaScriptFramework{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", version='" + version + '\'' +
+				", version=" + version +
 				", deprecationDate=" + deprecationDate +
 				", hypeLevel=" + hypeLevel +
 				'}';

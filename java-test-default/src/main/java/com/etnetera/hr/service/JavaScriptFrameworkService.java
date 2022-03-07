@@ -57,7 +57,6 @@ public class JavaScriptFrameworkService {
      * Method for deleting framework based on id, checking if the framework with this id exists
      * @param id
      */
-
     public void delete(Long id) {
         if(!existsById(id)){
             throw new EntityNotFoundException("The entity with this id does not exist");
