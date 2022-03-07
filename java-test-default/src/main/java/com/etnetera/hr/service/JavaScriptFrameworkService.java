@@ -63,4 +63,37 @@ public class JavaScriptFrameworkService {
         }
         javaScriptFrameworkRepository.deleteById(id);
     }
+
+    /**
+     * Method for updating Framework properties, checking if the framework with this ID exists
+     *
+     * @param id
+     * @param javaScriptFramework
+     * @return updatedJavaScriptFramework
+     */
+    @Transactional
+    public JavaScriptFramework update(Long id,JavaScriptFramework javaScriptFramework) {
+        if(!existsById(id)){
+           throw new EntityNotFoundException("The entity with this id does not exist");
+        }
+        Optional<JavaScriptFramework> optionalUpdatedJavaScriptFramework = javaScriptFrameworkRepository.findById(id);
+        JavaScriptFramework updatedJavaScriptFramework = optionalUpdatedJavaScriptFramework.get();
+        updatedJavaScriptFramework.setName(javaScriptFramework.getName());
+        updatedJavaScriptFramework.setDeprecationDate(javaScriptFramework.getDeprecationDate());
+        updatedJavaScriptFramework.setVersion(javaScriptFramework.getVersion());
+        updatedJavaScriptFramework.setHypeLevel(javaScriptFramework.getHypeLevel());
+        return updatedJavaScriptFramework;
+    }
+
+    /**
+     * Method for returning Framework with requested id
+     * @param id
+     * @return JavaScriptFramework
+     */
+    public JavaScriptFramework readById(Long id) {
+        if(!existsById(id)){
+            throw new EntityNotFoundException("The entity with this id does not exist");
+        }
+        return javaScriptFrameworkRepository.findById(id).get();
+    }
 }

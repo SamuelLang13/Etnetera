@@ -41,4 +41,14 @@ public class JavaScriptFrameworkController {
 		service.delete(id);
 	}
 
+	@PutMapping("/frameworks/{id}")
+	public JavaScriptFrameworkDTO update(@PathVariable Long id, @RequestBody JavaScriptFrameworkDTO javaScriptFrameworkDTO){
+		return JavaScriptFrameworkConverter.fromModel(service.update(id,JavaScriptFrameworkConverter.toModel(javaScriptFrameworkDTO)));
+	}
+
+	@GetMapping("/frameworks/{id}")
+	public JavaScriptFrameworkDTO getOne(@PathVariable Long id){
+		return JavaScriptFrameworkConverter.fromModel(service.readById(id));
+	}
+
 }

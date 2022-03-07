@@ -63,7 +63,7 @@ public class JavaScriptFramework {
 		return version;
 	}
 
-	public void setVersion(ArrayList<String> version) {
+	public void setVersion(List<String> version) {
 		this.version = version;
 	}
 
