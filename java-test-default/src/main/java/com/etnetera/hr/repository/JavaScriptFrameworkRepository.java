@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,7 +19,6 @@ import java.util.Optional;
 @Repository
 public interface JavaScriptFrameworkRepository extends CrudRepository<JavaScriptFramework, Long> {
 
-    public Optional<JavaScriptFramework> findByNameAndVersionAndDeprecationDateAndHypeLevel(String Name, Collection<String> Version,
-                                                                                            LocalDate deprecationDate, Double hypeLevel);
+    public Optional<JavaScriptFramework> findByNameAndDeprecationDateAndHypeLevel(String Name,LocalDate deprecationDate, Double hypeLevel);
 
 }

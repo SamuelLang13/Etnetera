@@ -2,17 +2,20 @@ package com.etnetera.hr.dto;
 
 import javax.persistence.Column;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
-public class JavaScriptFrameworkDTO {
+public class JavaScriptFrameworkDTO{
 
     private Long id;
     private String name;
-    private Set<String> version;
+    private List<String> version = new ArrayList<>();
     private LocalDate deprecationDate;
     private Double hypeLevel;
 
-    public JavaScriptFrameworkDTO(Long id, String name, Set<String> version, LocalDate deprecationDate, Double hypeLevel) {
+    public JavaScriptFrameworkDTO(Long id, String name, List<String> version, LocalDate deprecationDate, Double hypeLevel) {
         this.id = id;
         this.name = name;
         this.version = version;
@@ -32,11 +35,11 @@ public class JavaScriptFrameworkDTO {
         this.name = name;
     }
 
-    public Set<String> getVersion() {
+    public List<String> getVersion() {
         return version;
     }
 
-    public void setVersion(Set<String> version) {
+    public void setVersion(ArrayList<String> version) {
         this.version = version;
     }
 

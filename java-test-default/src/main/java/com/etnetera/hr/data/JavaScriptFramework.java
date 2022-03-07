@@ -21,7 +21,7 @@ public class JavaScriptFramework {
 	private String name;
 
 	@ElementCollection
-	private Set<String> version = new HashSet<>();
+	private List <String> version = new ArrayList <>();
 
 	@Column(nullable = false)
 	private LocalDate deprecationDate;
@@ -29,7 +29,7 @@ public class JavaScriptFramework {
 	@Column(nullable = false)
 	private Double hypeLevel;
 
-	public JavaScriptFramework(String name, Set<String> version, LocalDate deprecationDate, Double hypeLevel) {
+	public JavaScriptFramework(String name, List<String> version, LocalDate deprecationDate, Double hypeLevel) {
 		this.name = name;
 		this.version = version;
 		this.deprecationDate = deprecationDate;
@@ -59,11 +59,11 @@ public class JavaScriptFramework {
 		this.name = name;
 	}
 
-	public Set<String> getVersion() {
+	public List<String> getVersion() {
 		return version;
 	}
 
-	public void setVersion(Set<String> version) {
+	public void setVersion(ArrayList<String> version) {
 		this.version = version;
 	}
 
