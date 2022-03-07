@@ -5,12 +5,22 @@ import com.etnetera.hr.dto.JavaScriptFrameworkDTO;
 
 public class JavaScriptFrameworkConverter {
 
+    /**
+     * Converting DTO to entity model
+     * @param javaScriptFrameworkDTO
+     * @return JavaScriptFramework
+     */
     public static JavaScriptFramework toModel(JavaScriptFrameworkDTO javaScriptFrameworkDTO){
-        return new JavaScriptFramework();
+        return new JavaScriptFramework(javaScriptFrameworkDTO.getName(), javaScriptFrameworkDTO.getVersion(), javaScriptFrameworkDTO.getDeprecationDate(), javaScriptFrameworkDTO.getHypeLevel());
     }
 
+    /**
+     * Converting entity model to DTO
+     * @param javaScriptFramework
+     * @return JavaScriptFrameworkDTO
+     */
     public static JavaScriptFrameworkDTO fromModel(JavaScriptFramework javaScriptFramework){
-        return new JavaScriptFrameworkDTO();
+        return new JavaScriptFrameworkDTO(javaScriptFramework.getId(), javaScriptFramework.getName(), javaScriptFramework.getVersion(), javaScriptFramework.getDeprecationDate(), javaScriptFramework.getHypeLevel());
     }
 
 }
