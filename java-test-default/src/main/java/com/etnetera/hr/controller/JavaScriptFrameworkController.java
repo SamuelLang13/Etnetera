@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.etnetera.hr.data.JavaScriptFramework;
 import com.etnetera.hr.repository.JavaScriptFrameworkRepository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -48,14 +49,20 @@ public class JavaScriptFrameworkController {
 		return JavaScriptFrameworkConverter.fromModel(service.update(id,JavaScriptFrameworkConverter.toModel(javaScriptFrameworkDTO)));
 	}
 
-	@GetMapping("/frameworks/{id}")
+	@GetMapping("/frameworks/getById/{id}")
 	public JavaScriptFrameworkDTO getOne(@PathVariable Long id){
 		return JavaScriptFrameworkConverter.fromModel(service.readById(id));
 	}
-	@GetMapping("/frameworks/{name}")
+	@GetMapping("/frameworks/getByName/{name}")
 	public Collection<JavaScriptFrameworkDTO> getByName(@PathVariable String name){
 		return JavaScriptFrameworkConverter.fromModels(service.readByName(name));
 	}
+
+	@GetMapping("/frameworks/getByDate/{date}")
+	public Collection<JavaScriptFrameworkDTO> getByDate(@PathVariable LocalDate date){
+		return JavaScriptFrameworkConverter.fromModels(service.readByDate(date));
+	}
+
 	//Searching by Date
 	//Searching by Hype
 	//Searching by version

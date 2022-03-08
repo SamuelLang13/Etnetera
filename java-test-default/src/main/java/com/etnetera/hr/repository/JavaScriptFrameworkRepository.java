@@ -22,5 +22,5 @@ public interface JavaScriptFrameworkRepository extends CrudRepository<JavaScript
 
     public Optional<JavaScriptFramework> findByNameAndDeprecationDateAndHypeLevel(String Name,LocalDate deprecationDate, Double hypeLevel);
 
-    Set<JavaScriptFramework> findByName(String name);
+    Collection<JavaScriptFramework> findByName(String name);
 }

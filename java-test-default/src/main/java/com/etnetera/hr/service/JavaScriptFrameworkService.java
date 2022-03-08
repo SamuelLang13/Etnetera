@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
@@ -100,10 +102,14 @@ public class JavaScriptFrameworkService {
     }
 
     public Collection<JavaScriptFramework> readByName(String name) {
-        Set<JavaScriptFramework> javaScriptFrameworks = javaScriptFrameworkRepository.findByName(name);
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByName(name);
         if(javaScriptFrameworks.isEmpty()){
             throw new EntityNotFoundException("No framework with this name");
         }
         return javaScriptFrameworks;
+    }
+
+    public Collection<JavaScriptFramework> readByDate(LocalDate date) {
+        return null;
     }
 }

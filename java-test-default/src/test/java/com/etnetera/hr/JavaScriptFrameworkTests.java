@@ -66,12 +66,12 @@ public class JavaScriptFrameworkTests {
 
         JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
         Mockito.when(service.readById(1L)).thenReturn(javaScriptFramework);
-        mockMvc.perform(get("/frameworks/1"))
+        mockMvc.perform(get("/frameworks/getById/1"))
                 .andExpect(status().isOk());
 //                .andExpect(jsonPath("$.name",Matchers.is("JS1")));
 
         Mockito.when(service.readById(not(eq(1L)))).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get("/frameworks/-1"))
+        mockMvc.perform(get("/frameworks/getById/-1"))
                 .andExpect(status().isNotFound());
     }
 
