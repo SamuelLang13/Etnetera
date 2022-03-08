@@ -115,9 +115,9 @@ public class JavaScriptFrameworkService {
     }
 
     /**
-     * 
+     * Method for reading Frameworks by date, if none of the Framework has the requested than method throw NotFoundException
      * @param date
-     * @return
+     * @return Collection<JavaScriptFramework>
      */
     public Collection<JavaScriptFramework> readByDate(LocalDate date) {
          ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByDeprecationDate(date);
@@ -126,4 +126,18 @@ public class JavaScriptFrameworkService {
          }
          return javaScriptFrameworks;
     }
+
+    /**
+     * Method for reading Frameworks by hype, if none of the Framework has the requested than method throw NotFoundException
+     * @param hype
+     * @return Collection<JavaScriptFramework>
+     */
+    public Collection<JavaScriptFramework> readByHype(double hype) {
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByHypeLevel(hype);
+        if(javaScriptFrameworks.isEmpty()){
+            throw  new EntityNotFoundException("No framework with this hype level");
+        }
+        return javaScriptFrameworks;
+    }
+
 }

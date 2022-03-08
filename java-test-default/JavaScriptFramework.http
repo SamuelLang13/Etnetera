@@ -55,4 +55,7 @@ GET http://localhost:8080/frameworks/getByName/JavaScript
 GET http://localhost:8080/frameworks/getByDate/2020-03-08
 
 ###
+GET http://localhost:8080/frameworks/getByHype/50.4
+
+###
 DELETE http://localhost:8080/frameworks/-1

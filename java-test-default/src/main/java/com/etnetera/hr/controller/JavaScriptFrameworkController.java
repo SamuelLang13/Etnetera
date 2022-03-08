@@ -64,7 +64,11 @@ public class JavaScriptFrameworkController {
 		return JavaScriptFrameworkConverter.fromModels(service.readByDate(date));
 	}
 
-	//Searching by Date
+	@GetMapping("/frameworks/getByHype/{hype}")
+	public Collection<JavaScriptFrameworkDTO> getByDate(@PathVariable double hype){
+		return JavaScriptFrameworkConverter.fromModels(service.readByHype(hype));
+	}
+
 	//Searching by Hype
 	//Searching by version
 
