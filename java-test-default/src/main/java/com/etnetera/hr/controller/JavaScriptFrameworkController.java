@@ -4,6 +4,7 @@ import com.etnetera.hr.converter.JavaScriptFrameworkConverter;
 import com.etnetera.hr.dto.JavaScriptFrameworkDTO;
 import com.etnetera.hr.service.JavaScriptFrameworkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.etnetera.hr.data.JavaScriptFramework;
@@ -59,7 +60,7 @@ public class JavaScriptFrameworkController {
 	}
 
 	@GetMapping("/frameworks/getByDate/{date}")
-	public Collection<JavaScriptFrameworkDTO> getByDate(@PathVariable LocalDate date){
+	public Collection<JavaScriptFrameworkDTO> getByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
 		return JavaScriptFrameworkConverter.fromModels(service.readByDate(date));
 	}
 

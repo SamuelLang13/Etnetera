@@ -101,6 +101,11 @@ public class JavaScriptFrameworkService {
         return javaScriptFrameworkRepository.findById(id).get();
     }
 
+    /**
+     * Method for reading Frameworks by name, if none of the Framework has the requested than method throw NotFoundException
+     * @param name
+     * @return Collection<JavaScriptFramework>
+     */
     public Collection<JavaScriptFramework> readByName(String name) {
         ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByName(name);
         if(javaScriptFrameworks.isEmpty()){
@@ -109,7 +114,16 @@ public class JavaScriptFrameworkService {
         return javaScriptFrameworks;
     }
 
+    /**
+     * 
+     * @param date
+     * @return
+     */
     public Collection<JavaScriptFramework> readByDate(LocalDate date) {
-        return null;
+         ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByDeprecationDate(date);
+         if(javaScriptFrameworks.isEmpty()){
+             throw  new EntityNotFoundException("No framework with this date");
+         }
+         return javaScriptFrameworks;
     }
 }

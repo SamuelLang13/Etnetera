@@ -6,10 +6,7 @@ import com.etnetera.hr.data.JavaScriptFramework;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Spring data repository interface used for accessing the data in database.
@@ -23,4 +20,6 @@ public interface JavaScriptFrameworkRepository extends CrudRepository<JavaScript
     public Optional<JavaScriptFramework> findByNameAndDeprecationDateAndHypeLevel(String Name,LocalDate deprecationDate, Double hypeLevel);
 
     Collection<JavaScriptFramework> findByName(String name);
+
+    Collection<JavaScriptFramework> findByDeprecationDate(LocalDate date);
 }
