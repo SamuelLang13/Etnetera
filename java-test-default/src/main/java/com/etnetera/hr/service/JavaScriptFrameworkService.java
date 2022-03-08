@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class JavaScriptFrameworkService {
@@ -92,8 +94,16 @@ public class JavaScriptFrameworkService {
      */
     public JavaScriptFramework readById(Long id) {
         if(!existsById(id)){
-            throw new EntityNotFoundException("The entity with this id does not exist");
+            throw new EntityNotFoundException();
         }
         return javaScriptFrameworkRepository.findById(id).get();
+    }
+
+    public Collection<JavaScriptFramework> readByName(String name) {
+        Set<JavaScriptFramework> javaScriptFrameworks = javaScriptFrameworkRepository.findByName(name);
+        if(javaScriptFrameworks.isEmpty()){
+            throw new EntityNotFoundException("No framework with this name");
+        }
+        return javaScriptFrameworks;
     }
 }

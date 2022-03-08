@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,11 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.matches;
+import static org.mockito.AdditionalMatchers.not;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -58,8 +61,24 @@ public class JavaScriptFrameworkTests {
 
     }
 
+    @Test
+    public void testGetOne() throws Exception {
+
+        JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        Mockito.when(service.readById(1L)).thenReturn(javaScriptFramework);
+        mockMvc.perform(get("/frameworks/1"))
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("$.name",Matchers.is("JS1")));
+
+        Mockito.when(service.readById(not(eq(1L)))).thenThrow(new EntityNotFoundException());
+        mockMvc.perform(get("/frameworks/-1"))
+                .andExpect(status().isNotFound());
+    }
+
+
 //    @Test
 //    public void testCreateExisting() throws Exception {
+//
 //        doThrow(new EntityStateException()).when(service).create(any(JavaScriptFramework.class));
 //
 //        mockMvc.perform(post("/frameworks")
@@ -68,7 +87,7 @@ public class JavaScriptFrameworkTests {
 //                                "\"version\":[\"1.3\",\"3.3\"]," +
 //                                "\"deprecationDate\":\"2022-03-08\"," +
 //                                "\"hypeLevel\":\"43.4\"}"))
-//                .andExpect(status().isConflict());
+//                .andExpect(status().isInternalServerError());
 //    }
 
 }

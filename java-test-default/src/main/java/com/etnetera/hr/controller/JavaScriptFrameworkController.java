@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.etnetera.hr.data.JavaScriptFramework;
 import com.etnetera.hr.repository.JavaScriptFrameworkRepository;
 
+import java.util.Collection;
+
 /**
  * Simple REST controller for accessing application logic.
  * 
@@ -50,7 +52,10 @@ public class JavaScriptFrameworkController {
 	public JavaScriptFrameworkDTO getOne(@PathVariable Long id){
 		return JavaScriptFrameworkConverter.fromModel(service.readById(id));
 	}
-	//Searching by Name
+	@GetMapping("/frameworks/{name}")
+	public Collection<JavaScriptFrameworkDTO> getByName(@PathVariable String name){
+		return JavaScriptFrameworkConverter.fromModels(service.readByName(name));
+	}
 	//Searching by Date
 	//Searching by Hype
 	//Searching by version
