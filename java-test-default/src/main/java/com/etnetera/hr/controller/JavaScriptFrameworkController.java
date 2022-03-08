@@ -65,11 +65,13 @@ public class JavaScriptFrameworkController {
 	}
 
 	@GetMapping("/frameworks/getByHype/{hype}")
-	public Collection<JavaScriptFrameworkDTO> getByDate(@PathVariable double hype){
+	public Collection<JavaScriptFrameworkDTO> getByHype(@PathVariable double hype){
 		return JavaScriptFrameworkConverter.fromModels(service.readByHype(hype));
 	}
 
-	//Searching by Hype
-	//Searching by version
+	@GetMapping("/frameworks/getByVersion/{version}")
+	public Collection<JavaScriptFrameworkDTO> getByVersion(@PathVariable String version){
+		return JavaScriptFrameworkConverter.fromModels(service.readByVersion(version));
+	}
 
 }

@@ -24,4 +24,6 @@ public interface JavaScriptFrameworkRepository extends CrudRepository<JavaScript
     Collection<JavaScriptFramework> findByDeprecationDate(LocalDate date);
 
     Collection<JavaScriptFramework> findByHypeLevel(double hype);
+
+    Collection<JavaScriptFramework> findByVersion(String version);
 }

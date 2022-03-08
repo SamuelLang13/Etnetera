@@ -140,4 +140,16 @@ public class JavaScriptFrameworkService {
         return javaScriptFrameworks;
     }
 
+    /**
+     * Method for reading Frameworks by version, if none of the Framework has the requested than method throw NotFoundException
+     * @param version
+     * @return Collection<JavaScriptFramework>
+     */
+    public Collection<JavaScriptFramework> readByVersion(String version) {
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = (ArrayList<JavaScriptFramework>) javaScriptFrameworkRepository.findByVersion(version);
+        if(javaScriptFrameworks.isEmpty()){
+            throw  new EntityNotFoundException("No framework with this version");
+        }
+        return javaScriptFrameworks;
+    }
 }
