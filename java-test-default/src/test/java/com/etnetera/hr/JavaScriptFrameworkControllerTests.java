@@ -177,4 +177,22 @@ public class JavaScriptFrameworkControllerTests {
     }
 
 
+    @Test
+    public void testGetByDate() throws Exception{
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
+        JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS3", List.of("13.4","45.4"), LocalDate.of(2022,2,4),8.8);
+
+        List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
+
+        Mockito.when(service.readByDate(LocalDate.of(2022,2,4))).thenReturn(javaScriptFrameworks);
+
+        mockMvc.perform(get("/frameworks/getByDate/2022-02-04"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].deprecationDate",Matchers.is("2022-02-04")))
+                .andExpect(jsonPath("$[1].deprecationDate",Matchers.is("2022-02-04")));
+    }
+
+
 }
