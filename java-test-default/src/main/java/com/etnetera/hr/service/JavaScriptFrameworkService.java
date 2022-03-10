@@ -29,7 +29,7 @@ public class JavaScriptFrameworkService {
      * @param javaScriptFramework
      * @return true if yes, false if not
      */
-    private boolean exists(JavaScriptFramework javaScriptFramework){
+    public boolean exists(JavaScriptFramework javaScriptFramework){
         Optional<JavaScriptFramework> optionalJavaScriptFramework = javaScriptFrameworkRepository.findByNameAndDeprecationDateAndHypeLevel(javaScriptFramework.getName(),javaScriptFramework.getDeprecationDate(), javaScriptFramework.getHypeLevel());
         return optionalJavaScriptFramework.isPresent();
     }
