@@ -32,8 +32,8 @@ public class JavaScriptFrameworkController {
 	}
 
 	@GetMapping("/frameworks")
-	public Iterable<JavaScriptFramework> frameworks() {
-		return repository.findAll();
+	public Collection<JavaScriptFrameworkDTO> frameworks() {
+		return JavaScriptFrameworkConverter.fromModels(service.readAll());
 	}
 
 	@PostMapping("/frameworks")

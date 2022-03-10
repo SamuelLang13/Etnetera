@@ -27,21 +27,17 @@ import java.util.Optional;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class JavaScriptFrameworkTests {
+public class JavaScriptFrameworkControllerTests {
 
     @MockBean
     JavaScriptFrameworkService service;
-
-    @MockBean
-    JavaScriptFrameworkController controller;
 
     @Autowired
     MockMvc mockMvc;
@@ -53,7 +49,7 @@ public class JavaScriptFrameworkTests {
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework2);
 
-        Mockito.when(controller.frameworks()).thenReturn(javaScriptFrameworks);
+        Mockito.when(service.readAll()).thenReturn(javaScriptFrameworks);
 
         mockMvc.perform(get("/frameworks"))
                 .andExpect(status().isOk())
@@ -65,14 +61,27 @@ public class JavaScriptFrameworkTests {
     public void testGetOne() throws Exception {
 
         JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        Mockito.when(service.readById(1L)).thenReturn(javaScriptFramework);
+        Mockito.when(service.readById(javaScriptFramework.getId())).thenReturn(javaScriptFramework);
         mockMvc.perform(get("/frameworks/getById/1"))
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$.name",Matchers.is("JS1")));
-
-        Mockito.when(service.readById(not(eq(1L)))).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get("/frameworks/getById/-1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name",Matchers.is("JS1")));
+        Mockito.when(service.readById(not(eq(javaScriptFramework.getId())))).thenThrow(new EntityNotFoundException());
+        mockMvc.perform(get("/frameworks/getById/2"))
                 .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void testDelete() throws Exception{
+        JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        Mockito.when(service.readById(javaScriptFramework.getId())).thenReturn(javaScriptFramework);
+        Mockito.when(service.readById(not(eq(javaScriptFramework.getId())))).thenThrow(new EntityNotFoundException());
+
+        mockMvc.perform(get("/frameworks/-1"))
+                .andExpect(status().isNotFound());
+
+
+
     }
 
 

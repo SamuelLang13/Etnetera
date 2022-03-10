@@ -46,7 +46,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/frameworks/getById/1
+GET http://localhost:8080/frameworks
+
+###
+GET http://localhost:8080/frameworks/getById/-1
 
 ###
 GET http://localhost:8080/frameworks/getByName/JavaScript

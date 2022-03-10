@@ -152,4 +152,8 @@ public class JavaScriptFrameworkService {
         }
         return javaScriptFrameworks;
     }
+
+    public Collection<JavaScriptFramework> readAll(){
+        return (Collection<JavaScriptFramework>) javaScriptFrameworkRepository.findAll();
+    }
 }
