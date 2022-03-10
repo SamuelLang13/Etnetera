@@ -109,8 +109,9 @@ public class JavaScriptFrameworkControllerTests {
     @Test
     public void testCreate() throws Exception{
         JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        Mockito.when(service.readById(javaScriptFramework.getId())).thenReturn(javaScriptFramework);
-        Mockito.when(service.readById(not(eq(javaScriptFramework.getId())))).thenThrow(new EntityNotFoundException());
+        Mockito.when(service.create(javaScriptFramework)).thenReturn(javaScriptFramework);
+        Mockito.when(service.create(not(eq(javaScriptFramework)))).thenReturn(new JavaScriptFramework(2L, "JS2", List.of("15.5"),
+                LocalDate.of(2021,5,6), 48.5));
 
         mockMvc.perform(post("/frameworks")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -125,6 +126,50 @@ public class JavaScriptFrameworkControllerTests {
         JavaScriptFramework javaScriptFramework1 = argumentCaptor.getValue();
         assertEquals("JS1",javaScriptFramework1.getName());
 
+    }
+
+    @Test
+    public void testUpdateNotExisting() throws Exception{
+        JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        Mockito.when(service.update(javaScriptFramework.getId(),javaScriptFramework)).thenReturn(javaScriptFramework);
+        Mockito.when(service.update(not(eq(javaScriptFramework.getId())),any())).thenThrow(new EntityNotFoundException());
+
+        mockMvc.perform(put("/frameworks/-1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"JS3\"," +
+                        "\"version\":[\"19.4\"]," +
+                        "\"deprecationDate\":\"2022-02-04\"," +
+                        "\"hypeLevel\":\"8.7\"}"))
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void testUpdate()throws Exception{
+        JavaScriptFramework javaScriptFramework = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        Mockito.when(service.update(javaScriptFramework.getId(),javaScriptFramework)).thenReturn(javaScriptFramework);
+        Mockito.when(service.update(not(eq(javaScriptFramework.getId())),any())).thenThrow(new EntityNotFoundException());
+
+        mockMvc.perform(put("/frameworks/-1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"JS3\"," +
+                                "\"version\":[\"19.4\"]," +
+                                "\"deprecationDate\":\"2022-02-04\"," +
+                                "\"hypeLevel\":\"8.7\"}"))
+                .andExpect(status().isNotFound());
+
+        mockMvc.perform(put("/frameworks/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"JS3\"," +
+                                "\"version\":[\"19.4\"]," +
+                                "\"deprecationDate\":\"2022-02-04\"," +
+                                "\"hypeLevel\":\"8.7\"}"))
+                .andExpect(status().isOk());
+
+        ArgumentCaptor<JavaScriptFramework> argumentCaptor = ArgumentCaptor.forClass(JavaScriptFramework.class);
+        Mockito.verify(service, Mockito.times(1)).create(argumentCaptor.capture());
+        JavaScriptFramework javaScriptFramework1 = argumentCaptor.getValue();
+        assertEquals("JS3",javaScriptFramework1.getName());
     }
 
 
