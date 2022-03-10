@@ -157,7 +157,23 @@ public class JavaScriptFrameworkControllerTests {
                                 "\"deprecationDate\":\"2022-02-04\"," +
                                 "\"hypeLevel\":\"8.7\"}"))
                 .andExpect(status().isOk());
+    }
 
+    @Test
+    public void testGetByName() throws Exception{
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
+        JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS1", List.of("13.4","45.4"), LocalDate.of(2019,8,1),8.7);
+
+        List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
+
+        Mockito.when(service.readByName("JS1")).thenReturn(javaScriptFrameworks);
+
+        mockMvc.perform(get("/frameworks/getByName/JS1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].name",Matchers.is("JS1")))
+                .andExpect(jsonPath("$[1].name",Matchers.is("JS1")));
     }
 
 
