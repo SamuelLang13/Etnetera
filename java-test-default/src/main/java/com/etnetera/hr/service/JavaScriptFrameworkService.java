@@ -39,7 +39,7 @@ public class JavaScriptFrameworkService {
      * @param id
      * @return true if yes, false if not
      */
-    private boolean existsById(Long id){
+    public boolean existsById(Long id){
         Optional<JavaScriptFramework> optionalJavaScriptFramework = javaScriptFrameworkRepository.findById(id);
         return optionalJavaScriptFramework.isPresent();
     }
