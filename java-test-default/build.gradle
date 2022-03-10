@@ -19,5 +19,5 @@ dependencies {
 	runtimeOnly 'com.h2database:h2:2.1.210'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
 	testImplementation 'org.testcontainers:junit-jupiter:1.16.3'
-	//testCompile ('org.junit.jupiter:junit-jupiter:5.8.2')
+	testImplementation 'org.testcontainers:postgresql:1.16.3'
 }
