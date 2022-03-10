@@ -211,4 +211,21 @@ public class JavaScriptFrameworkControllerTests {
                 .andExpect(jsonPath("$[1].hypeLevel",Matchers.is(8.7)));
     }
 
+
+    @Test
+    public void testGetByVersion() throws Exception{
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
+        JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS3", List.of("13.4","45.4"), LocalDate.of(2022,2,4),8.7);
+
+        List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
+
+        Mockito.when(service.readByVersion("13.4")).thenReturn(javaScriptFrameworks);
+
+        mockMvc.perform(get("/frameworks/getByVersion/13.4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].version[0]",Matchers.is("13.4")))
+                .andExpect(jsonPath("$[1].version[0]",Matchers.is("13.4")));
+    }
 }
