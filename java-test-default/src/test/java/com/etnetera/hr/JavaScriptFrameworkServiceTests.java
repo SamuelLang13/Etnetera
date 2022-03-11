@@ -153,4 +153,17 @@ public class JavaScriptFrameworkServiceTests {
         Assertions.assertThrows(EntityNotFoundException.class,()->service.readByVersion("2"));
         Assertions.assertEquals(javaScriptFrameworks,service.readByVersion("13.4"));
     }
+
+    @Test
+    public void testReadAll(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("13.4"), LocalDate.of(2019,4,1),5.7);
+
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = new ArrayList<>();
+        javaScriptFrameworks.add(javaScriptFramework1);
+        javaScriptFrameworks.add(javaScriptFramework2);
+
+        Mockito.lenient().when(repository.findAll()).thenReturn(javaScriptFrameworks);
+        Assertions.assertEquals(javaScriptFrameworks,service.readAll());
+    }
 }
