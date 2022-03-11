@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class JavaScriptFrameworkService {
@@ -26,7 +25,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method to find out if the framework with these properties exists
-     * @param javaScriptFramework
      * @return true if yes, false if not
      */
     public boolean exists(JavaScriptFramework javaScriptFramework){
@@ -36,7 +34,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method to find out if the framework with this id exists
-     * @param id
      * @return true if yes, false if not
      */
     public boolean existsById(Long id){
@@ -46,7 +43,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for creating Framework, checking if the framework with these properties already exist
-     * @param javaScriptFramework
      * @return JavaScriptFramework
      */
     @Transactional
@@ -59,7 +55,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for deleting framework based on id, checking if the framework with this id exists
-     * @param id
      */
     public void delete(Long id) {
         if(!existsById(id)){
@@ -71,8 +66,6 @@ public class JavaScriptFrameworkService {
     /**
      * Method for updating Framework properties, checking if the framework with this ID exists
      *
-     * @param id
-     * @param javaScriptFramework
      * @return updatedJavaScriptFramework
      */
     @Transactional
@@ -91,7 +84,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for returning Framework with requested id
-     * @param id
      * @return JavaScriptFramework
      */
     public JavaScriptFramework readById(Long id) {
@@ -103,7 +95,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for reading Frameworks by name, if none of the Framework has the requested than method throw NotFoundException
-     * @param name
      * @return Collection<JavaScriptFramework>
      */
     public Collection<JavaScriptFramework> readByName(String name) {
@@ -116,7 +107,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for reading Frameworks by date, if none of the Framework has the requested than method throw NotFoundException
-     * @param date
      * @return Collection<JavaScriptFramework>
      */
     public Collection<JavaScriptFramework> readByDate(LocalDate date) {
@@ -129,7 +119,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for reading Frameworks by hype, if none of the Framework has the requested than method throw NotFoundException
-     * @param hype
      * @return Collection<JavaScriptFramework>
      */
     public Collection<JavaScriptFramework> readByHype(double hype) {
@@ -142,7 +131,6 @@ public class JavaScriptFrameworkService {
 
     /**
      * Method for reading Frameworks by version, if none of the Framework has the requested than method throw NotFoundException
-     * @param version
      * @return Collection<JavaScriptFramework>
      */
     public Collection<JavaScriptFramework> readByVersion(String version) {

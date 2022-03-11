@@ -80,6 +80,40 @@ public class JavaScriptFrameworkServiceTests {
         Assertions.assertThrows(EntityNotFoundException.class,()->service.update(-1L,javaScriptFramework2));
     }
 
+    @Test
+    public void testDelete(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+
+        Mockito.lenient().when(repository.findById(1L)).thenReturn(Optional.of(javaScriptFramework1));
+        Mockito.lenient().when(repository.findById(not(eq(1L)))).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(EntityNotFoundException.class,()->service.delete(2L));
+    }
+
+    @Test
+    public void testReadByName(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS1", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
+
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = new ArrayList<>();
+        javaScriptFrameworks.add(javaScriptFramework1);
+        javaScriptFrameworks.add(javaScriptFramework2);
+
+        Mockito.lenient().when(repository.findByName("JS1")).thenReturn(javaScriptFrameworks);
+        Mockito.lenient().when(repository.findByName(not(eq("JS1")))).thenThrow(new EntityNotFoundException());
+
+        Assertions.assertThrows(EntityNotFoundException.class,()->service.readByName("JS2"));
+        Assertions.assertEquals(javaScriptFrameworks,service.readByName("JS1"));
+
+
+    }
+
+
+
+
+
+
+
 
 
 
