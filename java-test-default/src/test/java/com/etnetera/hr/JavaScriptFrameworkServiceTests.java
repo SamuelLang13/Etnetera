@@ -104,17 +104,53 @@ public class JavaScriptFrameworkServiceTests {
 
         Assertions.assertThrows(EntityNotFoundException.class,()->service.readByName("JS2"));
         Assertions.assertEquals(javaScriptFrameworks,service.readByName("JS1"));
-
-
     }
 
+    @Test
+    public void testReadByDate(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS1", List.of("23.4"), LocalDate.of(2022,2,4),5.6);
 
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = new ArrayList<>();
+        javaScriptFrameworks.add(javaScriptFramework1);
+        javaScriptFrameworks.add(javaScriptFramework2);
 
+        Mockito.lenient().when(repository.findByDeprecationDate(LocalDate.of(2022,2,4))).thenReturn(javaScriptFrameworks);
+        Mockito.lenient().when(repository.findByDeprecationDate(not(eq(LocalDate.of(2022,2,4))))).thenThrow(new EntityNotFoundException());
 
+        Assertions.assertThrows(EntityNotFoundException.class,()->service.readByDate(LocalDate.of(2019,2,5)));
+        Assertions.assertEquals(javaScriptFrameworks,service.readByDate(LocalDate.of(2022,2,4)));
+    }
 
+    @Test
+    public void testReadByHype(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS1", List.of("23.4"), LocalDate.of(2019,4,1),8.7);
 
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = new ArrayList<>();
+        javaScriptFrameworks.add(javaScriptFramework1);
+        javaScriptFrameworks.add(javaScriptFramework2);
 
+        Mockito.lenient().when(repository.findByHypeLevel(8.7)).thenReturn(javaScriptFrameworks);
+        Mockito.lenient().when(repository.findByHypeLevel(not(eq(8.7)))).thenThrow(new EntityNotFoundException());
 
+        Assertions.assertThrows(EntityNotFoundException.class,()->service.readByHype(8.6));
+        Assertions.assertEquals(javaScriptFrameworks,service.readByHype(8.7));
+    }
 
+    @Test
+    public void testReadByVersion(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("13.4"), LocalDate.of(2019,4,1),5.7);
 
+        ArrayList<JavaScriptFramework> javaScriptFrameworks = new ArrayList<>();
+        javaScriptFrameworks.add(javaScriptFramework1);
+        javaScriptFrameworks.add(javaScriptFramework2);
+
+        Mockito.lenient().when(repository.findByVersion("13.4")).thenReturn(javaScriptFrameworks);
+        Mockito.lenient().when(repository.findByVersion(not(eq("13.4")))).thenThrow(new EntityNotFoundException());
+
+        Assertions.assertThrows(EntityNotFoundException.class,()->service.readByVersion("2"));
+        Assertions.assertEquals(javaScriptFrameworks,service.readByVersion("13.4"));
+    }
 }
