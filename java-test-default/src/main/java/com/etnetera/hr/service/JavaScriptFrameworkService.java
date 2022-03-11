@@ -153,6 +153,10 @@ public class JavaScriptFrameworkService {
         return javaScriptFrameworks;
     }
 
+    /**
+     * Method for reading all frameworks
+     * @return Collection<JavaScriptFramework>
+     */
     public Collection<JavaScriptFramework> readAll(){
         return (Collection<JavaScriptFramework>) javaScriptFrameworkRepository.findAll();
     }
