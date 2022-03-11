@@ -39,11 +39,26 @@ public class JavaScriptFrameworkServiceTests {
 
     @Test
     public void testExists(){
-        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,02,04),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,04,07),5.6);
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
+        
+        Mockito.lenient().when(repository.findByNameAndDeprecationDateAndHypeLevel("JS1",LocalDate.of(2022,2,4),8.7)).thenReturn(Optional.of(javaScriptFramework1));
+        Mockito.lenient().when(repository.findByNameAndDeprecationDateAndHypeLevel(not(eq("JS1")),not(eq(LocalDate.of(2022,2,4))),not(eq(8.7)))).thenReturn(Optional.empty());
 
+        Assertions.assertTrue(service.exists(javaScriptFramework1));
+        Assertions.assertFalse(service.exists(javaScriptFramework2));
+    }
 
+    @Test
+    public void testExistsById(){
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework(1L,"JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
 
+        Mockito.lenient().when(repository.findById(1L)).thenReturn(Optional.of(javaScriptFramework1));
+        Mockito.lenient().when(repository.findById(not(eq(1L)))).thenReturn(Optional.empty());
+
+        Assertions.assertTrue(service.existsById(1L));
+        Assertions.assertFalse(service.existsById(2L));
     }
 
 }
