@@ -1,6 +1,5 @@
 package com.etnetera.hr;
 
-import com.etnetera.hr.controller.JavaScriptFrameworkController;
 import com.etnetera.hr.data.JavaScriptFramework;
 import com.etnetera.hr.exception.EntityStateException;
 import com.etnetera.hr.service.JavaScriptFrameworkService;
@@ -8,12 +7,9 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -23,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.AdditionalMatchers.not;
@@ -46,8 +41,8 @@ public class JavaScriptFrameworkControllerTests {
 
     @Test
     public void testGetAll() throws Exception {
-        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,02,04),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,04,07),5.6);
+        JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
+        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework2);
 
@@ -162,7 +157,6 @@ public class JavaScriptFrameworkControllerTests {
     @Test
     public void testGetByName() throws Exception{
         JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
         JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS1", List.of("13.4","45.4"), LocalDate.of(2019,8,1),8.7);
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
@@ -180,7 +174,6 @@ public class JavaScriptFrameworkControllerTests {
     @Test
     public void testGetByDate() throws Exception{
         JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
         JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS3", List.of("13.4","45.4"), LocalDate.of(2022,2,4),8.8);
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
@@ -197,7 +190,6 @@ public class JavaScriptFrameworkControllerTests {
     @Test
     public void testGetByHype() throws Exception{
         JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
         JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS3", List.of("13.4","45.4"), LocalDate.of(2022,2,4),8.7);
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
@@ -215,7 +207,6 @@ public class JavaScriptFrameworkControllerTests {
     @Test
     public void testGetByVersion() throws Exception{
         JavaScriptFramework javaScriptFramework1 = new JavaScriptFramework("JS1", List.of("13.4"), LocalDate.of(2022,2,4),8.7);
-        JavaScriptFramework javaScriptFramework2 = new JavaScriptFramework("JS2", List.of("23.4"), LocalDate.of(2019,4,7),5.6);
         JavaScriptFramework javaScriptFramework3 = new JavaScriptFramework("JS3", List.of("13.4","45.4"), LocalDate.of(2022,2,4),8.7);
 
         List<JavaScriptFramework> javaScriptFrameworks = List.of(javaScriptFramework1,javaScriptFramework3);
